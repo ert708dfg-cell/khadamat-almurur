@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -5,82 +6,153 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>خدمات المرور العراقي</title>
 <style>
+* { box-sizing: border-box; }
 body {
-  font-family: Arial, sans-serif;
-  background: #f1f4f8;
   margin: 0;
-  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #f0f3f7;
+  color: #172b40;
 }
 header {
   background: #123b65;
   color: white;
-  padding: 25px 12px;
+  text-align: center;
+  padding: 28px 15px;
 }
+header h1 { margin: 0 0 10px; }
 main {
-  max-width: 450px;
-  margin: 25px auto;
-  padding: 15px;
+  width: 92%;
+  max-width: 480px;
+  margin: 24px auto;
 }
 .card {
   background: white;
+  border-radius: 14px;
   padding: 22px;
-  margin: 15px 0;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px #0001;
+  margin-bottom: 18px;
+  box-shadow: 0 3px 12px #0000000d;
 }
-input, button {
+label {
+  display: block;
+  margin-top: 16px;
+  font-weight: bold;
+}
+input, select, button {
   width: 100%;
-  box-sizing: border-box;
   padding: 13px;
-  margin-top: 12px;
+  margin-top: 8px;
   border-radius: 8px;
   font-size: 16px;
 }
-input {
-  border: 1px solid #bbb;
-}
+input, select { border: 1px solid #cbd5e1; }
 button {
   background: #123b65;
   color: white;
   border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
 }
 .note {
-  color: #666;
-  font-size: 14px;
+  font-size: 13px;
+  color: #586779;
+  line-height: 1.8;
 }
+#result {
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+a { color: #123b65; }
 </style>
 </head>
 <body>
+
 <header>
   <h1>خدمات المرور العراقي</h1>
-  <p>منصة تجريبية لخدمات المركبات</p>
+  <p>خدمات المركبات في العراق</p>
 </header>
+
 <main>
-  <div class="card">
-    <h2>الاستعلام عن غرامات المركبة</h2>
-    <p>أدخل رقم المركبة للبدء</p>
-    <input id="plate" placeholder="رقم المركبة">
-    <button onclick="searchFine()">استعلام</button>
-    <p id="result"></p>
-    <p class="note">هذه نسخة تجريبية ولا تتصل بقاعدة بيانات المرور الرسمية.</p>
-  </div>
-  <div class="card">
-    <h3>خدماتنا</h3>
-    <p>الاستعلام عن الغرامات</p>
-    <p>معلومات المركبات</p>
-    <p>خدمات المرور الإلكترونية</p>
-  </div>
+  <section class="card">
+    <h2>الاستعلام عن المركبة</h2>
+
+    <label for="plate">رقم لوحة المركبة</label>
+    <input id="plate" placeholder="اكتب رقم اللوحة">
+
+    <label for="vehicle">نوع المركبة</label>
+    <select id="vehicle">
+      <option value="">اختر نوع المركبة</option>
+      <option>خصوصي</option>
+      <option>أجرة</option>
+      <option>حمل</option>
+      <option>دراجة نارية</option>
+      <option>أخرى</option>
+    </select>
+
+    <label for="province">المحافظة</label>
+    <select id="province">
+      <option value="">اختر المحافظة</option>
+      <option>بغداد</option>
+      <option>البصرة</option>
+      <option>نينوى</option>
+      <option>أربيل</option>
+      <option>النجف</option>
+      <option>كربلاء</option>
+      <option>بابل</option>
+      <option>الأنبار</option>
+      <option>ديالى</option>
+      <option>كركوك</option>
+      <option>صلاح الدين</option>
+      <option>واسط</option>
+      <option>ميسان</option>
+      <option>ذي قار</option>
+      <option>المثنى</option>
+      <option>القادسية</option>
+      <option>دهوك</option>
+      <option>السليمانية</option>
+      <option>حلبجة</option>
+    </select>
+
+    <button onclick="searchVehicle()">
+      متابعة الاستعلام
+    </button>
+
+    <div id="result" aria-live="polite"></div>
+  </section>
+
+  <section class="card">
+    <h3>تنبيه للمستخدم</h3>
+    <p class="note">
+      هذه نسخة تجريبية. بيانات المركبة لا تُرسل إلى
+      قاعدة بيانات حكومية، ولا تعرض هذه الصفحة الغرامات
+      الحقيقية.
+    </p>
+    <p>
+      <a href="https://ur.gov.iq/" target="_blank"
+      rel="noopener noreferrer">
+        بوابة أور للخدمات الحكومية
+      </a>
+    </p>
+  </section>
 </main>
+
 <script>
-function searchFine() {
-  const plate = document.getElementById('plate').value.trim();
-  const result = document.getElementById('result');
-  if (!plate) {
-    result.textContent = 'يرجى إدخال رقم المركبة';
+function searchVehicle() {
+  const plate = document.getElementById("plate").value.trim();
+  const vehicle = document.getElementById("vehicle").value;
+  const province = document.getElementById("province").value;
+  const result = document.getElementById("result");
+
+  if (!plate || !vehicle || !province) {
+    result.textContent = "يرجى ملء جميع الخانات أولاً.";
     return;
   }
-  result.textContent = 'الواجهة تجريبية حالياً. لم يتم الاتصال بنظام المرور الرسمي.';
+
+  result.textContent =
+    "اكتملت بيانات المركبة التجريبية. " +
+    "للتأكد من الغرامات الحقيقية، استخدم الخدمة الرسمية.";
 }
 </script>
+
 </body>
 </html>
