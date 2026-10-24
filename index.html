@@ -1,1 +1,86 @@
-
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خدمات المرور العراقي</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f1f4f8;
+  margin: 0;
+  text-align: center;
+}
+header {
+  background: #123b65;
+  color: white;
+  padding: 25px 12px;
+}
+main {
+  max-width: 450px;
+  margin: 25px auto;
+  padding: 15px;
+}
+.card {
+  background: white;
+  padding: 22px;
+  margin: 15px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0001;
+}
+input, button {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  margin-top: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+input {
+  border: 1px solid #bbb;
+}
+button {
+  background: #123b65;
+  color: white;
+  border: none;
+}
+.note {
+  color: #666;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>خدمات المرور العراقي</h1>
+  <p>منصة تجريبية لخدمات المركبات</p>
+</header>
+<main>
+  <div class="card">
+    <h2>الاستعلام عن غرامات المركبة</h2>
+    <p>أدخل رقم المركبة للبدء</p>
+    <input id="plate" placeholder="رقم المركبة">
+    <button onclick="searchFine()">استعلام</button>
+    <p id="result"></p>
+    <p class="note">هذه نسخة تجريبية ولا تتصل بقاعدة بيانات المرور الرسمية.</p>
+  </div>
+  <div class="card">
+    <h3>خدماتنا</h3>
+    <p>الاستعلام عن الغرامات</p>
+    <p>معلومات المركبات</p>
+    <p>خدمات المرور الإلكترونية</p>
+  </div>
+</main>
+<script>
+function searchFine() {
+  const plate = document.getElementById('plate').value.trim();
+  const result = document.getElementById('result');
+  if (!plate) {
+    result.textContent = 'يرجى إدخال رقم المركبة';
+    return;
+  }
+  result.textContent = 'الواجهة تجريبية حالياً. لم يتم الاتصال بنظام المرور الرسمي.';
+}
+</script>
+</body>
+</html>
