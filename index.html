@@ -84,7 +84,19 @@
       <p>مساعد أولي للفني لترتيب الفحوصات وتقليل تبديل القطع بالتخمين.</p>
       <span class="tag">نسخة تجريبية — التشخيص يحتاج تأكيد بالفحص</span>
     </header>
-
+    <section class="panel" id="modePanel">
+      <h2>شلون تحب تستخدم المستشار؟</h2>
+      <p class="muted">اختار الوضع المناسب إلك حتى نرتّب الفحوصات حسب خبرتك.</p>
+      <div class="actions">
+        <button class="primary" type="button" onclick="chooseMode('citizen')">
+          🚗 أنا صاحب سيارة
+        </button>
+        <button class="secondary" type="button" onclick="chooseMode('mechanic')">
+          🔧 أنا ميكانيكي
+        </button>
+      </div>
+    </section>
+   
     <section class="panel" aria-labelledby="carTitle">
       <h2 id="carTitle">١. معلومات السيارة والعطل</h2>
       <div class="grid">
@@ -288,6 +300,25 @@
       window.open(url, '_blank', 'noopener,noreferrer');
     }
 
+      function chooseMode(mode) {
+      const codesField = document.getElementById('codes').closest('.field');
+      const details = document.getElementById('details');
+      const carTitle = document.getElementById('carTitle');
+
+      if (mode === 'citizen') {
+        codesField.style.display = 'none';
+        carTitle.textContent = '١. معلومات السيارة والعطل';
+        details.placeholder =
+          'وصفلي شنو يصير بالسيارة، ومتى يظهر العطل، وهل ظهرت لمبة تحذير؟';
+        alert('تم اختيار وضع صاحب السيارة. املأ المعلومات واختار العطل.');
+      } else {
+        codesField.style.display = '';
+        carTitle.textContent = '١. معلومات السيارة والفحص الفني';
+        details.placeholder =
+          'اكتب نتائج الفحص، القراءات، الأكواد، ومتى يظهر العطل.';
+        alert('تم اختيار وضع الميكانيكي. تگدر تدخل الأكواد وملاحظات الفحص.');
+      }
+    }
     document.getElementById('yearNow').textContent = new Date().getFullYear();
   </script>
 </body>
