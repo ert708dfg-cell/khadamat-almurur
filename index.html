@@ -4,155 +4,190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>شخصها</title>
+<meta name="theme-color" content="#111315">
+<title>شخّصها | أعطال السيارات</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f0f3f7;
-  color: #172b40;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Tahoma,sans-serif;
+  background:#111315;
+  color:#f5f5f5;
 }
-header {
-  background: #123b65;
-  color: white;
-  text-align: center;
-  padding: 28px 15px;
+header{
+  padding:25px 18px;
+  text-align:center;
+  background:#1b1e21;
+  border-bottom:1px solid #393d41;
 }
-header h1 { margin: 0 0 10px; }
-main {
-  width: 92%;
-  max-width: 480px;
-  margin: 24px auto;
+.logo{font-size:34px;font-weight:bold;color:#e2e2e2}
+header p{color:#b6b9bd;margin-bottom:0}
+main{max-width:650px;margin:auto;padding:18px}
+.card{
+  background:#1c1f22;
+  border:1px solid #35393d;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:16px;
 }
-.card {
-  background: white;
-  border-radius: 14px;
-  padding: 22px;
-  margin-bottom: 18px;
-  box-shadow: 0 3px 12px #0000000d;
+h2{font-size:19px;margin-top:0}
+label{display:block;margin:14px 0 7px;color:#d5d7d9}
+input,select,textarea{
+  width:100%;
+  padding:13px;
+  border-radius:9px;
+  border:1px solid #45494e;
+  background:#111315;
+  color:white;
+  font-size:16px;
 }
-label {
-  display: block;
-  margin-top: 16px;
-  font-weight: bold;
+button{
+  width:100%;
+  border:0;
+  padding:14px;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:13px;
 }
-input, select, button {
-  width: 100%;
-  padding: 13px;
-  margin-top: 8px;
-  border-radius: 8px;
-  font-size: 16px;
+.primary{background:#e5e5e5;color:#151515}
+.secondary{background:#34383c;color:white}
+.result{
+  display:none;
+  background:#25292d;
+  border-right:4px solid #c7c7c7;
+  padding:15px;
+  border-radius:10px;
+  line-height:1.9;
+  margin-top:15px;
 }
-input, select { border: 1px solid #cbd5e1; }
-button {
-  background: #123b65;
-  color: white;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 20px;
-}
-.note {
-  font-size: 13px;
-  color: #586779;
-  line-height: 1.8;
-}
-#result {
-  line-height: 1.8;
-  overflow-wrap: anywhere;
-}
-a { color: #123b65; }
+.note{font-size:13px;color:#b9bdc1;line-height:1.8}
+footer{text-align:center;color:#999;padding:20px;font-size:13px}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>خدمات المرور العراقي</h1>
-  <p>خدمات المركبات في العراق</p>
+  <div class="logo">🔧 شخّصها</div>
+  <p>افهم عطل سيارتك واطلب ميكانيكيك</p>
 </header>
 
 <main>
   <section class="card">
-    <h2>الاستعلام عن المركبة</h2>
+    <h2>🚗 معلومات السيارة</h2>
 
-    <label for="plate">رقم لوحة المركبة</label>
-    <input id="plate" placeholder="اكتب رقم اللوحة">
+    <label for="car">نوع السيارة</label>
+    <input id="car" placeholder="مثال: تويوتا كامري">
 
-    <label for="vehicle">نوع المركبة</label>
-    <select id="vehicle">
-      <option value="">اختر نوع المركبة</option>
-      <option>خصوصي</option>
-      <option>أجرة</option>
-      <option>حمل</option>
-      <option>دراجة نارية</option>
-      <option>أخرى</option>
+    <label for="year">سنة الصنع</label>
+    <input id="year" type="number" placeholder="مثال: 2020">
+
+    <label for="engine">حجم المحرك</label>
+    <input id="engine" placeholder="مثال: 2.5 لتر">
+
+    <label for="symptom">شنو العطل اللي تواجهه؟</label>
+    <select id="symptom">
+      <option value="">اختار العَرَض</option>
+      <option value="start">السيارة ما تشتغل</option>
+      <option value="stall">المحرك يطفي فجأة</option>
+      <option value="rpm">تذبذب الـ RPM</option>
+      <option value="power">ضعف العزم والتسارع</option>
+      <option value="heat">ارتفاع حرارة المحرك</option>
+      <option value="smoke">خروج دخان من العادم</option>
+      <option value="noise">صوت غريب بالمحرك</option>
+      <option value="light">لمبة المكينة شغالة</option>
     </select>
 
-    <label for="province">المحافظة</label>
-    <select id="province">
-      <option value="">اختر المحافظة</option>
-      <option>بغداد</option>
-      <option>البصرة</option>
-      <option>نينوى</option>
-      <option>أربيل</option>
-      <option>النجف</option>
-      <option>كربلاء</option>
-      <option>بابل</option>
-      <option>الأنبار</option>
-      <option>ديالى</option>
-      <option>كركوك</option>
-      <option>صلاح الدين</option>
-      <option>واسط</option>
-      <option>ميسان</option>
-      <option>ذي قار</option>
-      <option>المثنى</option>
-      <option>القادسية</option>
-      <option>دهوك</option>
-      <option>السليمانية</option>
-      <option>حلبجة</option>
-    </select>
+    <label for="details">تفاصيل إضافية (اختياري)</label>
+    <textarea id="details" rows="3"
+      placeholder="متى يظهر العطل؟ والمحرك بارد لو حار؟"></textarea>
 
-    <button onclick="searchVehicle()">
-      متابعة الاستعلام
-    </button>
-
-    <div id="result" aria-live="polite"></div>
+    <button class="primary" onclick="diagnose()">ابدأ التشخيص الأولي</button>
+    <div id="result" class="result" aria-live="polite"></div>
   </section>
 
   <section class="card">
-    <h3>تنبيه للمستخدم</h3>
-    <p class="note">
-      هذه نسخة تجريبية. بيانات المركبة لا تُرسل إلى
-      قاعدة بيانات حكومية، ولا تعرض هذه الصفحة الغرامات
-      الحقيقية.
-    </p>
-    <p>
-      <a href="https://ur.gov.iq/" target="_blank"
-      rel="noopener noreferrer">
-        بوابة أور للخدمات الحكومية
-      </a>
-    </p>
+    <h2>🧰 اطلب ميكانيكي</h2>
+    <p>إذا تحتاج مساعدة، جهّز معلومات سيارتك والعطل حتى تتواصل ويا الميكانيكي.</p>
+    <button class="primary" onclick="requestMechanic()">طلب ميكانيكي عبر واتساب</button>
+    <p class="note">يجب إعداد رقم واتساب الميكانيكي داخل الكود قبل استخدام زر الطلب.</p>
   </section>
+
+  <section class="card">
+    <h2>💰 أجور الفحص</h2>
+    <p>تختلف أجرة الفحص والتصليح حسب نوع السيارة وطبيعة العطل.</p>
+    <p class="note">السعر النهائي يحدده الميكانيكي بعد فحص السيارة والاتفاق مع الزبون.</p>
+  </section>
+
+  <p class="note">التشخيص المعروض إرشادي، وليس تأكيداً للسبب. لا تبدّل قطع قبل إجراء الفحوصات المناسبة. إذا ارتفعت حرارة المحرك بشدة أو ظهرت علامات خطر، أوقف السيارة بمكان آمن واطلب المساعدة.</p>
 </main>
 
-<script>
-function searchVehicle() {
-  const plate = document.getElementById("plate").value.trim();
-  const vehicle = document.getElementById("vehicle").value;
-  const province = document.getElementById("province").value;
-  const result = document.getElementById("result");
+<footer>شخّصها © 2026 — مساعدك لفهم أعطال السيارات</footer>
 
-  if (!plate || !vehicle || !province) {
-    result.textContent = "يرجى ملء جميع الخانات أولاً.";
+<script>
+function diagnose(){
+  const symptom=document.getElementById('symptom').value;
+  const car=document.getElementById('car').value.trim();
+  const result=document.getElementById('result');
+
+  const advice={
+    start:'احتمالات أولية: البطارية أو أقطابها، دائرة التشغيل، أو الوقود. افحص جهد البطارية وتحقق من دوران المحرك أثناء التشغيل.',
+    stall:'احتمالات أولية: انقطاع الوقود أو الكهرباء، حساس الكرنك، أو مشكلة بالشحن. يلزم فحص وقت حدوث العطل وقراءة بيانات السيارة.',
+    rpm:'احتمالات أولية: تسريب هواء، بوابة الهواء، أو قراءات أحد الحساسات. افحص أكواد الأعطال وبيانات الهواء قبل تبديل القطع.',
+    power:'احتمالات أولية: فلتر هواء أو وقود، ضغط الوقود، الإشعال، أو مشكلة بالشحن التوربيني إن وجد. يحتاج فحصاً حسب السيارة.',
+    heat:'أوقف السيارة بمكان آمن إذا ارتفعت الحرارة. بعد أن يبرد المحرك، افحص مستوى سائل التبريد والتسريبات. لا تفتح غطاء الرديتر وهو حار.',
+    smoke:'لون الدخان وظروف ظهوره مهمة. سجّل اللون وهل يظهر عند التشغيل أو التسارع، ثم افحص الزيت وسائل التبريد والوقود حسب الحالة.',
+    noise:'لا يمكن تحديد مصدر الصوت من الوصف وحده. إذا كان الصوت قوياً أو ترافق مع لمبة ضغط الزيت، أوقف المحرك واطلب فحصاً.',
+    light:'اقرأ أكواد الأعطال بجهاز فحص مناسب وسجّل البيانات. لمبة المكينة وحدها لا تحدد القطعة التالفة.'
+  };
+
+  if(!symptom){
+    result.style.display='block';
+    result.textContent='اختار العَرَض أولاً حتى نعرض إرشادات الفحص.';
     return;
   }
 
-  result.textContent =
-    "اكتملت بيانات المركبة التجريبية. " +
-    "للتأكد من الغرامات الحقيقية، استخدم الخدمة الرسمية.";
+  result.style.display='block';
+  result.innerHTML='<strong>نتيجة أولية'+
+    (car?' لسيارة '+escapeText(car):'')+
+    ':</strong><br>'+advice[symptom]+
+    '<br><br><strong>الخطوة التالية:</strong> سجّل الأكواد ونتائج الفحص قبل تغيير أي قطعة.';
+}
+
+function escapeText(value){
+  return value.replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function requestMechanic(){
+  const car=document.getElementById('car').value.trim();
+  const year=document.getElementById('year').value.trim();
+  const engine=document.getElementById('engine').value.trim();
+  const symptom=document.getElementById('symptom');
+  const details=document.getElementById('details').value.trim();
+
+  if(!car || !symptom.value){
+    alert('اكتب نوع السيارة واختار العطل أولاً.');
+    return;
+  }
+
+  const phone='9647XXXXXXXXX';
+  if(phone.includes('X')){
+    alert('باقي نضيف رقم واتسابك حتى يشتغل زر طلب الميكانيكي.');
+    return;
+  }
+
+  const message='السلام عليكم، أريد مساعدة بخصوص سيارتي.'+
+    '\nالسيارة: '+car+
+    '\nسنة الصنع: '+(year||'غير محددة')+
+    '\nالمحرك: '+(engine||'غير محدد')+
+    '\nالعطل: '+symptom.options[symptom.selectedIndex].text+
+    '\nالتفاصيل: '+(details||'لا توجد');
+
+  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(message),'_blank');
 }
 </script>
-
 </body>
 </html>
