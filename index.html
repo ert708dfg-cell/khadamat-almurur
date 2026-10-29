@@ -1,325 +1,472 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111318">
-  <title>مستشار أعطال السيارات</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0c0e12;
-      --panel: #15181f;
-      --panel2: #1c2029;
-      --line: #303642;
-      --text: #f3f4f6;
-      --muted: #aeb5c2;
-      --accent: #d5d9e0;
-      --accentText: #111318;
-      --warning: #f2c879;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: radial-gradient(circle at top, #20242d 0, var(--bg) 46%);
-      color: var(--text);
-      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
-      line-height: 1.75;
-    }
-    .wrap { width: min(920px, 100%); margin: auto; padding: 20px 14px 42px; }
-    header { padding: 22px 8px 18px; text-align: center; }
-    .logo {
-      display: inline-grid; place-items: center; width: 58px; height: 58px;
-      border: 1px solid #515866; border-radius: 18px; background: #20242c;
-      font-size: 28px; margin-bottom: 8px;
-    }
-    h1 { font-size: clamp(25px, 5vw, 36px); margin: 0; letter-spacing: -.4px; }
-    header p { color: var(--muted); margin: 6px auto 0; max-width: 620px; }
-    .tag { display: inline-block; margin-top: 12px; padding: 3px 11px; border: 1px solid var(--line); border-radius: 99px; color: #c7ccd5; font-size: 13px; }
-    .panel {
-      background: rgba(21,24,31,.96); border: 1px solid var(--line);
-      border-radius: 18px; padding: 18px; margin-top: 14px;
-      box-shadow: 0 12px 35px rgba(0,0,0,.18);
-    }
-    h2 { font-size: 19px; margin: 0 0 12px; }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
-    label { display: block; color: #d8dce3; font-size: 14px; margin-bottom: 5px; }
-    input, select, textarea {
-      width: 100%; min-width: 0; background: #0f1217; color: var(--text);
-      border: 1px solid #3a414e; border-radius: 10px; padding: 12px;
-      font: inherit; font-size: 15px; outline: none;
-    }
-    input:focus, select:focus, textarea:focus { border-color: #aeb6c4; box-shadow: 0 0 0 2px #aeb6c422; }
-    textarea { min-height: 96px; resize: vertical; }
-    .field { margin-bottom: 12px; }
-    .hint { color: var(--muted); font-size: 12px; margin-top: 4px; }
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-    button {
-      border: 1px solid #505867; border-radius: 11px; padding: 11px 16px;
-      font: inherit; font-weight: 700; cursor: pointer; min-height: 46px;
-    }
-    .primary { background: var(--accent); color: var(--accentText); border-color: var(--accent); flex: 1; }
-    .secondary { background: #20242d; color: var(--text); flex: 1; }
-    button:active { transform: translateY(1px); }
-    .result { display: none; margin-top: 16px; padding: 16px; background: #101319; border: 1px solid #454d5b; border-radius: 14px; }
-    .result h3 { margin: 0 0 8px; font-size: 18px; }
-    .result h4 { margin: 15px 0 5px; color: #e1e5ec; }
-    .result ul, .result ol { padding-right: 22px; margin: 6px 0; }
-    .notice { border-right: 3px solid var(--warning); padding: 8px 11px; background: #f2c87912; color: #f4dfb7; border-radius: 6px; margin-top: 12px; }
-    .muted { color: var(--muted); }
-    .small { font-size: 12px; color: var(--muted); }
-    footer { text-align: center; padding: 22px 8px 0; color: var(--muted); font-size: 12px; }
-    @media (max-width: 580px) {
-      .grid { grid-template-columns: 1fr; gap: 0; }
-      .panel { padding: 14px; }
-      .wrap { padding: 12px 10px 30px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0c0e12">
+<title>مستشار أعطال السيارات V8.2</title>
+<style>
+:root{
+--bg:#0c0e12;--panel:#15181f;--panel2:#20242d;
+--line:#343a46;--text:#f4f5f7;--muted:#aeb5c2;
+--accent:#d5d9e0;--warn:#f2c879;--green:#91d4aa
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+font-family:system-ui,Tahoma,Arial;line-height:1.8}
+.wrap{max-width:1000px;margin:auto;padding:15px}
+header{text-align:center;padding:22px 8px}
+.logo{font-size:38px}
+h1{font-size:clamp(25px,5vw,35px);margin:0}
+h2{font-size:20px;margin-top:0}
+h3{font-size:17px}
+p{margin:7px 0}
+.muted,.hint{color:var(--muted)}
+.hint{font-size:12px}
+.panel{background:var(--panel);border:1px solid var(--line);
+border-radius:16px;padding:16px;margin:13px 0}
+nav{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+button,.tab{font:inherit;cursor:pointer;border-radius:10px;
+padding:11px;border:1px solid #505867;background:var(--panel2);
+color:var(--text)}
+button.primary,.active{background:var(--accent);color:#111318}
+button{min-height:44px}
+button:active{opacity:.8}
+input,select,textarea{width:100%;padding:11px;margin-top:4px;
+background:#0f1217;color:var(--text);border:1px solid var(--line);
+border-radius:9px;font:inherit}
+textarea{min-height:90px}
+label{display:block;font-size:14px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions button{flex:1}
+.result{display:none;background:#101319;border:1px solid var(--line);
+padding:13px;border-radius:12px;margin-top:12px}
+.notice{padding:10px;border-right:3px solid var(--warn);
+background:#f2c87912;border-radius:7px;margin-top:12px}
+.good{color:var(--green)}
+.badge{display:inline-block;border:1px solid var(--line);
+padding:3px 8px;border-radius:20px;font-size:12px;color:var(--muted)}
+.item{border:1px solid var(--line);padding:12px;border-radius:10px;margin:8px 0}
+.item h3{margin:0 0 5px}
+.hidden{display:none!important}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.panel{padding:12px}.wrap{padding:10px}}
+</style>
 </head>
 <body>
-  <main class="wrap">
-    <header>
-      <div class="logo" aria-hidden="true">🔧</div>
-      <h1>مستشار أعطال السيارات</h1>
-      <p>مساعد أولي للفني لترتيب الفحوصات وتقليل تبديل القطع بالتخمين.</p>
-      <span class="tag">نسخة تجريبية — التشخيص يحتاج تأكيد بالفحص</span>
-    </header>
-    <section class="panel" id="modePanel">
-      <h2>شلون تحب تستخدم المستشار؟</h2>
-      <p class="muted">اختار الوضع المناسب إلك حتى نرتّب الفحوصات حسب خبرتك.</p>
-      <div class="actions">
-        <button class="primary" type="button" onclick="chooseMode('citizen')">
-          🚗 أنا صاحب سيارة
-        </button>
-        <button class="secondary" type="button" onclick="chooseMode('mechanic')">
-          🔧 أنا ميكانيكي
-        </button>
-      </div>
-    </section>
-   
-    <section class="panel" aria-labelledby="carTitle">
-      <h2 id="carTitle">١. معلومات السيارة والعطل</h2>
-      <div class="grid">
-        <div class="field">
-          <label for="car">نوع السيارة / الموديل *</label>
-          <input id="car" name="car" placeholder="مثال: Toyota Camry" autocomplete="off">
-        </div>
-        <div class="field">
-          <label for="year">سنة الصنع</label>
-          <input id="year" name="year" inputmode="numeric" placeholder="مثال: 2020">
-        </div>
-        <div class="field">
-          <label for="engine">المحرك</label>
-          <input id="engine" name="engine" placeholder="مثال: 2.5L أو 1.6 Turbo">
-        </div>
-        <div class="field">
-          <label for="symptom">اختار العطل *</label>
-          <select id="symptom" name="symptom">
-            <option value="">— اختار العطل —</option>
-            <option value="start">المحرك ما يشتغل</option>
-            <option value="stall">السيارة تطفي فجأة</option>
-            <option value="rpm">تذبذب أو ارتفاع RPM</option>
-            <option value="power">ضعف العزم / تسارع ضعيف</option>
-            <option value="heat">ارتفاع حرارة المحرك</option>
-            <option value="smoke">دخان من العادم</option>
-            <option value="noise">صوت أو طقطقة غير طبيعية</option>
-            <option value="light">لمبة المكينة أو كود عطل</option>
-          </select>
-        </div>
-      </div>
-      <div class="field">
-        <label for="codes">أكواد الأعطال (إن وجدت)</label>
-        <input id="codes" name="codes" placeholder="مثال: P0301 أو P0171">
-        <div class="hint">اكتب الأكواد كما تظهر بجهاز الفحص، ولا تمسحها قبل تسجيلها.</div>
-      </div>
-      <div class="field">
-        <label for="details">تفاصيل وملاحظات الفحص</label>
-        <textarea id="details" name="details" placeholder="متى يظهر العطل؟ بارد أو حار؟ أثناء التشغيل أو المشي؟ شنو الفحوصات اللي سويتها وشنو نتائجها؟"></textarea>
-      </div>
-      <div class="actions">
-        <button class="primary" type="button" onclick="diagnose()">ابدأ التشخيص الأولي</button>
-        <button class="secondary" type="button" onclick="requestMechanic()">اطلب مساعدة الميكانيكي عبر واتساب</button>
-      </div>
-      <div id="result" class="result" aria-live="polite"></div>
-    </section>
+<main class="wrap">
+<header>
+<div class="logo">🔧</div>
+<h1>مستشار أعطال السيارات</h1>
+<p class="muted">الإصدار V8.2 — التشخيص، الحساسات، وموسوعة القطع</p>
+<span class="badge">نسخة تجريبية قابلة للتطوير</span>
+</header>
 
-    <section class="panel">
-      <h2>طريقة استخدام المستشار</h2>
-      <ul>
-        <li>ابدأ بالفحوصات الأساسية والآمنة قبل تبديل أي قطعة.</li>
-        <li>سجّل أكواد الأعطال وبيانات جهاز الفحص ونتائج القياس.</li>
-        <li>قارن النتائج بمواصفات الشركة الخاصة بالموديل والمحرك.</li>
-      </ul>
-      <p class="notice">تنبيه: هذه إرشادات أولية وليست تشخيصاً مؤكداً. إذا ارتفعت الحرارة بشدة، أو ظهرت لمبة ضغط الزيت، أو صار صوت ميكانيكي قوي، أوقف المحرك بمكان آمن واطلب فحصاً مختصاً. لا تفتح غطاء نظام التبريد وهو حار.</p>
-    </section>
-    <footer>مستشار أعطال السيارات © <span id="yearNow"></span> — افحص أولاً، ثم قرّر.</footer>
-  </main>
+<section class="panel">
+<h2>اختار القسم</h2>
+<nav>
+<button class="active" onclick="showTab('diagnosis',this)">🔍 تشخيص الأعطال</button>
+<button onclick="showTab('sensors',this)">📡 مكتبة الحساسات</button>
+<button onclick="showTab('cars',this)">🚗 موسوعة السيارات</button>
+<button onclick="showTab('parts',this)">⚙️ قطع الغيار</button>
+</nav>
+</section>
 
-  <script>
-    const advice = {
-      start: {
-        title: 'المحرك ما يشتغل',
-        checks: [
-          'حدد هل المحرك يدور بالسلف بشكل طبيعي، أو السلف لا يدور.',
-          'افحص جهد البطارية أثناء التشغيل وأقطابها والتوصيلات والأرضي.',
-          'إذا السلف يدور: اقرأ الأكواد وبيانات RPM أثناء التدوير، ثم تحقق من الشرارة والوقود وضغطه حسب مواصفات السيارة.',
-          'تحقق من مانع التشغيل (Immobilizer) والفيوزات والريليهات ومخطط السيارة عند الحاجة.'
-        ],
-        avoid: 'لا تبدّل حساس الكرنك أو طرمبة الوقود قبل التحقق من التغذية والإشارة والضغط الفعلي.'
-      },
-      stall: {
-        title: 'السيارة تطفي فجأة',
-        checks: [
-          'سجّل هل تنطفئ وهي باردة أو حارة، أثناء المشي أو الوقوف، وهل تعود للعمل بعد الانتظار.',
-          'افحص الأكواد وبيانات RPM وقت العطل إن أمكن، ولا تمسح الأكواد قبل تسجيلها.',
-          'تحقق من جهد الشحن وأقطاب البطارية والأرضي والفيوزات والريليهات والتوصيلات التي قد تنقطع مع الاهتزاز.',
-          'قِس ضغط الوقود وتحقق من إشارة الكرنك والكام حسب مخطط ومواصفات السيارة.'
-        ],
-        avoid: 'إذا كان الانطفاء متقطعاً، افحص الدائرة وقت حدوث العطل؛ نجاح الفحص بعد رجوع السيارة للعمل لا يستبعد الانقطاع.'
-      },
-      rpm: {
-        title: 'تذبذب أو ارتفاع RPM',
-        checks: [
-          'قارن RPM المطلوب والفعلي وبيانات الهواء وحرارة المحرك بجهاز الفحص.',
-          'افحص وجود تسريب هواء بعد حساس MAF وخراطيم الفاكيوم ونظام PCV.',
-          'افحص بوابة الهواء وطريقة تعلمها حسب تعليمات الشركة، ولا تنظفها أو تعيد برمجتها عشوائياً.',
-          'راجع قراءات MAF/MAP وحساس حرارة سائل التبريد وأكواد الخليط أو الإشعال.'
-        ],
-        avoid: 'لا تفترض أن بوابة الهواء أو حساساً معيناً تالف لمجرد تذبذب RPM؛ أكد الخلل بالقراءات والفحص.'
-      },
-      power: {
-        title: 'ضعف العزم أو التسارع',
-        checks: [
-          'اقرأ الأكواد وبيانات التجميد (Freeze Frame) قبل مسحها.',
-          'افحص فلتر الهواء والانسداد بالعادم إذا كانت الأعراض تدل عليه.',
-          'تحقق من ضغط الوقود تحت الحمل، وعدّادات التقطيع (Misfire)، وبيانات الهواء والإشعال.',
-          'في محركات التيربو، قارن ضغط الشحن المطلوب والفعلي وافحص الخراطيم والتسريبات.'
-        ],
-        avoid: 'لا تبدّل البخاخات أو التيربو أو حساس الهواء دون قياس يدعم ذلك.'
-      },
-      heat: {
-        title: 'ارتفاع حرارة المحرك',
-        checks: [
-          'إذا مؤشر الحرارة مرتفع بشدة، أوقف السيارة بمكان آمن وأطفئ المحرك واتركه يبرد.',
-          'بعد أن يبرد تماماً، افحص مستوى سائل التبريد والتسريبات وحالة الخراطيم.',
-          'افحص عمل المراوح وبيانات حرارة المحرك والثرموستات ودوران سائل التبريد وفق إجراءات السلامة.',
-          'إذا تكرر النقص أو ظهرت علامات اختلاط السوائل، يلزم فحص ضغط نظام التبريد وسبب الفقد.'
-        ],
-        avoid: 'لا تفتح غطاء الرديتر أو قربة الضغط والمحرك حار، ولا تواصل القيادة مع ارتفاع حرارة شديد.'
-      },
-      smoke: {
-        title: 'دخان من العادم',
-        checks: [
-          'سجّل لون الدخان ووقت ظهوره: عند التشغيل البارد، بعد الوقوف، أم أثناء التسارع.',
-          'تحقق من مستوى الزيت وسائل التبريد بعد إطفاء المحرك واتباع إجراءات السلامة.',
-          'اربط الملاحظة ببيانات الوقود والتقطيع والأكواد، وافحص نظام التهوية أو التيربو إذا كان موجوداً.',
-          'الدخان وحده لا يكفي لتحديد سبب واحد؛ يلزم فحص حسب نوع المحرك.'
-        ],
-        avoid: 'لا تعتمد على لون الدخان وحده لتقرير تبديل قطعة.'
-      },
-      noise: {
-        title: 'صوت أو طقطقة غير طبيعية',
-        checks: [
-          'حدد مكان الصوت ومتى يظهر: تشغيل بارد، حار، عند زيادة RPM أو تحت الحمل.',
-          'افحص مستوى الزيت وحالته بأمان، وانتبه إلى لمبة ضغط الزيت.',
-          'تحقق من الملحقات والسيور ومصدر الصوت باستخدام إجراءات فحص آمنة.',
-          'إذا كان الصوت قوياً أو ظهر معه تحذير ضغط الزيت، أوقف المحرك ولا تواصل تشغيله.'
-        ],
-        avoid: 'لا تواصل تشغيل المحرك لمجرد محاولة تسجيل الصوت إذا كان الصوت قوياً أو معه تحذير ضغط الزيت.'
-      },
-      light: {
-        title: 'لمبة المكينة أو كود عطل',
-        checks: [
-          'اقرأ جميع الأكواد من الوحدات ذات العلاقة وسجّل الأكواد الحالية والمعلقة وبيانات التجميد.',
-          'ارجع إلى وصف الكود وإجراءات الشركة؛ الكود يحدد دائرة أو حالة محتملة وليس دائماً قطعة تالفة.',
-          'افحص الأسلاك والفيش والتغذية والأرضي والقراءات الحية حسب الاختبار المناسب.',
-          'بعد الإصلاح المؤكد، امسح الأكواد عند الحاجة وأعد الاختبار للتأكد من النتيجة.'
-        ],
-        avoid: 'لا تبدّل الحساس لمجرد ظهور كود باسمه؛ تحقق من الدائرة والقياسات أولاً.'
-      }
-    };
+<section class="panel" id="diagnosis">
+<h2>التشخيص الأولي الذكي</h2>
+<div class="grid">
+<label>الشركة والموديل *
+<input id="car" list="carList" placeholder="مثال: Toyota Camry">
+<datalist id="carList">
+<option value="Toyota Corolla">
+<option value="Toyota Camry">
+<option value="Toyota Land Cruiser">
+<option value="Toyota Hilux">
+<option value="Toyota Fortuner">
+<option value="Toyota Prado">
+<option value="Toyota Yaris">
+<option value="Hyundai Elantra">
+<option value="Hyundai Accent">
+<option value="Kia Sportage">
+<option value="Kia Seltos">
+<option value="Kia K5">
+<option value="Nissan Sunny">
+<option value="Nissan Altima">
+<option value="Nissan Patrol">
+<option value="Nissan Urvan">
+<option value="Chevrolet Tahoe">
+<option value="Chevrolet Malibu">
+<option value="GMC Yukon">
+<option value="Lexus ES">
+<option value="Lexus RX">
+<option value="Honda Civic">
+<option value="Mitsubishi L200">
+<option value="Mitsubishi Pajero">
+<option value="Suzuki Swift">
+<option value="MG 5">
+<option value="Chery Tiggo">
+<option value="JAC Hunter">
+</datalist>
+</label>
+<label>سنة الصنع
+<input id="year" inputmode="numeric" placeholder="2020">
+</label>
+<label>رمز المحرك وسعته
+<input id="engine" placeholder="مثال: 2GR-FE أو 1.6">
+</label>
+<label>نوع الوقود
+<select id="fuel">
+<option>بنزين</option><option>ديزل</option><option>هجين</option><option>كهربائي</option>
+</select>
+</label>
+<label>نوع العطل *
+<select id="symptom">
+<option value="">اختار العطل</option>
+<option value="start">المحرك ما يشتغل</option>
+<option value="stall">السيارة تطفي فجأة</option>
+<option value="rpm">تذبذب أو ارتفاع RPM</option>
+<option value="power">ضعف العزم</option>
+<option value="heat">ارتفاع حرارة المحرك</option>
+<option value="smoke">دخان من العادم</option>
+<option value="noise">صوت أو طقطقة</option>
+<option value="misfire">تقطيع واهتزاز المحرك</option>
+<option value="fuel">صرفية وقود عالية</option>
+<option value="trans">مشكلة ناقل الحركة</option>
+<option value="light">لمبة المكينة أو كود عطل</option>
+<option value="electrical">عطل كهربائي</option>
+</select>
+</label>
+<label>هل المحرك بارد أم حار؟
+<select id="temp">
+<option>غير محدد</option><option>بارد</option><option>حار</option><option>في الحالتين</option>
+</select>
+</label>
+</div>
+<label>كود العطل DTC
+<input id="codes" placeholder="مثال: P0301 أو P0171">
+</label>
+<label>تفاصيل الحالة ونتائج الفحص
+<textarea id="details" placeholder="متى يظهر العطل؟ شنو القراءات؟ شنو الفحوصات اللي سويتها؟"></textarea>
+</label>
+<div class="actions">
+<button class="primary" onclick="diagnose()">ابدأ التشخيص</button>
+<button onclick="sendWhatsApp()">طلب مساعدة عبر واتساب</button>
+</div>
+<div id="result" class="result" aria-live="polite"></div>
+</section>
 
-    function escapeText(value) {
-      return String(value).replace(/[&<>"']/g, function(c) {
-        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-      });
-    }
+<section class="panel hidden" id="sensors">
+<h2>مكتبة حساسات وأنظمة المحرك</h2>
+<p class="muted">اختار الحساس حتى تعرف وظيفته وأعراض الخلل والفحوصات الأولية.</p>
+<input id="sensorSearch" placeholder="ابحث عن حساس أو اختصار..." oninput="renderSensors()">
+<div id="sensorList"></div>
+<div class="notice">قيم الفولت والمقاومة ومواقع الحساسات تختلف حسب الشركة ورمز المحرك. ارجع إلى دليل الصيانة قبل اعتماد أي قيمة.</div>
+</section>
 
-    function diagnose() {
-      const car = document.getElementById('car').value.trim();
-      const year = document.getElementById('year').value.trim();
-      const engine = document.getElementById('engine').value.trim();
-      const symptom = document.getElementById('symptom').value;
-      const codes = document.getElementById('codes').value.trim();
-      const details = document.getElementById('details').value.trim();
-      const result = document.getElementById('result');
+<section class="panel hidden" id="cars">
+<h2>موسوعة السيارات الشائعة</h2>
+<p class="muted">قاعدة بداية قابلة للتوسيع. اختار السيارة لمشاهدة المعلومات العامة.</p>
+<input id="carSearch" placeholder="ابحث عن الشركة أو الموديل..." oninput="renderCars()">
+<div id="carListResults"></div>
+<div class="notice">هذه ليست قاعدة بيانات كاملة لجميع السنوات والمحركات. لازم تحديد الجيل ورمز المحرك والسوق قبل اعتماد معلومات الصيانة.</div>
+</section>
 
-      if (!car || !symptom) {
-        alert('اكتب نوع السيارة واختار العطل أولاً.');
-        return;
-      }
+<section class="panel hidden" id="parts">
+<h2>دليل قطع الغيار</h2>
+<p class="muted">ابحث باسم القطعة أو النظام، ثم حدد السيارة للتأكد من التوافق.</p>
+<label>السيارة
+<input id="partCar" placeholder="الشركة والموديل">
+</label>
+<label>السنة
+<input id="partYear" inputmode="numeric" placeholder="سنة الصنع">
+</label>
+<label>رمز المحرك
+<input id="partEngine" placeholder="رمز المحرك إن توفر">
+</label>
+<input id="partSearch" placeholder="مثال: حساس كرنك، طرمبة وقود، فلتر زيت" oninput="renderParts()">
+<div id="partList"></div>
+<div class="notice">أرقام OEM غير متوفرة في هذه النسخة التجريبية. لا تعتمد أي رقم قطعة أو توافق قبل مطابقته مع كتالوج الشركة ورقم الهيكل VIN.</div>
+</section>
 
-      const item = advice[symptom];
-      const checks = item.checks.map(x => '<li>' + escapeText(x) + '</li>').join('');
-      result.innerHTML =
-        '<h3>النتيجة الأولية: ' + escapeText(item.title) + '</h3>' +
-        '<p><strong>السيارة:</strong> ' + escapeText(car) +
-        (year ? ' — <strong>السنة:</strong> ' + escapeText(year) : '') +
-        (engine ? ' — <strong>المحرك:</strong> ' + escapeText(engine) : '') + '</p>' +
-        (codes ? '<p><strong>الأكواد المسجلة:</strong> ' + escapeText(codes) + '</p>' : '') +
-        '<h4>ترتيب الفحوصات المقترح</h4><ol>' + checks + '</ol>' +
-        '<h4>قبل تبديل أي قطعة</h4><p>' + escapeText(item.avoid) + '</p>' +
-        (details ? '<h4>ملاحظاتك</h4><p>' + escapeText(details) + '</p>' : '') +
-        '<div class="notice">هذه خطوات أولية عامة. اتبع دليل الصيانة ومواصفات الشركة، واستخدم معدات الحماية وإجراءات السلامة المناسبة.</div>';
-      result.style.display = 'block';
-      result.scrollIntoView({behavior: 'smooth', block: 'start'});
-    }
+<section class="panel">
+<h2>إرشادات السلامة</h2>
+<ul>
+<li>لا تبدّل أي قطعة اعتماداً على كود العطل وحده.</li>
+<li>افحص الفيوزات والتغذية والأرضي والتوصيلات والقراءات قبل تبديل الحساسات.</li>
+<li>إذا ارتفعت الحرارة بشدة أو ظهرت لمبة ضغط الزيت، أوقف المحرك بمكان آمن.</li>
+<li>لا تفتح غطاء التبريد والمحرك حار.</li>
+<li>هذا المستشار يساعد بترتيب الفحوصات ولا يغني عن دليل الصيانة والفحص المختص.</li>
+</ul>
+</section>
+<footer>مستشار أعطال السيارات V8.2 © <span id="now"></span></footer>
+</main>
 
-    function requestMechanic() {
-      const car = document.getElementById('car').value.trim();
-      const year = document.getElementById('year').value.trim();
-      const engine = document.getElementById('engine').value.trim();
-      const symptom = document.getElementById('symptom');
-      const codes = document.getElementById('codes').value.trim();
-      const details = document.getElementById('details').value.trim();
+<script>
+const advice={
+start:{
+title:"المحرك ما يشتغل",
+checks:[
+"حدد هل السلف يدور أم لا يدور.",
+"افحص البطارية والجهد أثناء التدوير والأقطاب والأرضي.",
+"إذا يدور المحرك، افحص RPM أثناء التدوير وأكواد الأعطال.",
+"تحقق من الشرارة والوقود وضغطه ونبض البخاخات حسب نظام السيارة.",
+"افحص مانع التشغيل والفيوزات والريليهات ومخطط الأسلاك."
+],avoid:"لا تستبدل حساس الكرنك أو طرمبة الوقود دون إثبات الخلل."
+},
+stall:{
+title:"السيارة تطفي فجأة",
+checks:[
+"حدد هل العطل يظهر بارد أو حار وأثناء المشي أو الوقوف.",
+"اقرأ الأكواد والبيانات الحية وقت العطل إن أمكن.",
+"افحص التغذية والأرضي والفيوزات والريليهات وقواعدها.",
+"افحص ضغط الوقود وإشارة الكرنك والكام وقت حدوث المشكلة."
+],avoid:"العطل المتقطع يحتاج فحص الدائرة وقت حدوثه؛ نجاح الفحص بعد رجوع السيارة للعمل لا يستبعد الخلل."
+},
+rpm:{
+title:"تذبذب أو ارتفاع RPM",
+checks:[
+"قارن RPM المطلوب والفعلي وحرارة المحرك بجهاز الفحص.",
+"افحص تسريب الهواء وخراطيم الفاكيوم وPCV.",
+"افحص بوابة الهواء ونظام تعلمها وفق تعليمات الشركة.",
+"راجع قراءات MAF/MAP وحساس حرارة المحرك وتصحيحات الوقود.",
+"افحص صمام التطهير EVAP إذا كانت الأعراض والبيانات تدل عليه."
+],avoid:"لا تنظف أو تبدّل البوابة أو الحساسات عشوائياً."
+},
+power:{
+title:"ضعف العزم",
+checks:[
+"اقرأ الأكواد وبيانات Freeze Frame.",
+"افحص فلتر الهواء والوقود والانسداد المحتمل بالعادم.",
+"راجع عدادات التقطيع وضغط الوقود وبيانات الهواء.",
+"في محركات التيربو قارن ضغط الشحن المطلوب والفعلي.",
+"افحص توقيت المحرك والضغط الميكانيكي إذا دعت النتائج."
+],avoid:"لا تستبدل البخاخات أو التيربو أو حساس الهواء دون قياسات."
+},
+heat:{
+title:"ارتفاع حرارة المحرك",
+checks:[
+"إذا الحرارة مرتفعة بشدة، أوقف السيارة وأطفئ المحرك.",
+"بعد أن يبرد تماماً افحص مستوى سائل التبريد والتسريبات.",
+"افحص المراوح والثرموستات ودوران سائل التبريد.",
+"عند تكرر المشكلة افحص ضغط النظام وسبب فقدان السائل."
+],avoid:"لا تفتح غطاء الرديتر وهو حار ولا تواصل القيادة مع حرارة شديدة."
+},
+smoke:{
+title:"دخان من العادم",
+checks:[
+"حدد لون الدخان ووقت ظهوره.",
+"افحص مستويات الزيت وسائل التبريد بعد اتباع السلامة.",
+"اربط الأعراض بقراءات الوقود والتقطيع والأكواد.",
+"افحص التيربو أو نظام التهوية عند وجودهما."
+],avoid:"لون الدخان وحده لا يؤكد قطعة تالفة."
+},
+noise:{
+title:"صوت أو طقطقة",
+checks:[
+"حدد مصدر الصوت وهل يظهر بارد أو حار أو تحت الحمل.",
+"افحص مستوى الزيت وحالة التحذيرات.",
+"حدد هل الصوت من المحرك أم السيور والملحقات.",
+"إذا الصوت قوي أو ظهرت لمبة ضغط الزيت أوقف المحرك."
+],avoid:"لا تواصل تشغيل المحرك إذا كان الصوت قوياً أو مصحوباً بتحذير ضغط الزيت."
+},
+misfire:{
+title:"تقطيع واهتزاز المحرك",
+checks:[
+"اقرأ أكواد P0300 وما يرتبط بها وسجل بيانات التجميد.",
+"راجع عدادات التقطيع لكل أسطوانة.",
+"افحص البواجي والكويلات حسب خطة اختبار الشركة.",
+"إذا لم يظهر خلل بالإشعال، افحص البخاخات وضغط الوقود وضغط الأسطوانات."
+],avoid:"لا تبدّل جميع الكويلات أو البخاخات دون اختبار."
+},
+fuel:{
+title:"صرفية وقود عالية",
+checks:[
+"افحص حرارة المحرك وقراءات حساس الهواء والأكسجين.",
+"راجع تصحيحات الوقود STFT وLTFT.",
+"افحص ضغط الإطارات والفرامل العالقة وطريقة الاستخدام.",
+"افحص الثرموستات والبخاخات وضغط الوقود عند وجود دليل."
+],avoid:"صرفية الوقود وحدها لا تثبت تلف حساس الأكسجين."
+},
+trans:{
+title:"مشكلة ناقل الحركة",
+checks:[
+"اقرأ أكواد وحدة ناقل الحركة TCM وليس المحرك فقط.",
+"حدد متى تحدث المشكلة وهل توجد لمبة تحذير.",
+"تحقق من مستوى ونوع سائل الناقل وفق الإجراء الصحيح.",
+"راجع بيانات السرعة والحرارة والتوصيلات حسب الدليل."
+],avoid:"لا تضف سائلاً عشوائياً ولا تفك الناقل قبل التشخيص."
+},
+light:{
+title:"لمبة المكينة أو كود عطل",
+checks:[
+"اقرأ الأكواد الحالية والمعلقة وبيانات Freeze Frame.",
+"الكود يحدد دائرة أو حالة محتملة وليس بالضرورة قطعة تالفة.",
+"افحص الفيش والأسلاك والتغذية والأرضي والقراءات الحية.",
+"اتبع إجراء الاختبار الخاص برمز المحرك والسيارة."
+],avoid:"لا تبدّل الحساس لمجرد ظهور اسمه بالكود."
+},
+electrical:{
+title:"عطل كهربائي",
+checks:[
+"حدد الدائرة المتأثرة والأعراض وقت ظهورها.",
+"افحص البطارية والشحن والأرضي والتوصيلات.",
+"افحص الفيوز بالقيمة الصحيحة ومخطط الدائرة.",
+"استخدم جهاز القياس ومخطط الأسلاك لتحديد مكان انقطاع التغذية."
+],avoid:"لا تركب فيوزاً بأمبير أعلى ولا تتجاوز وسائل الحماية."
+}
+};
 
-      if (!car || !symptom.value) {
-        alert('اكتب نوع السيارة واختار العطل أولاً.');
-        return;
-      }
+const sensors=[
+["MAF","حساس كتلة الهواء","يقيس كتلة الهواء الداخل للمحرك.","راجع g/s والقراءات الحية وتسريب الهواء ودائرة التغذية."],
+["MAP","حساس ضغط مجمع السحب","يقيس ضغط مجمع السحب أو الضغط المطلق حسب النظام.","قارن القراءة بالضغط الجوي وحالة المحرك وفق مواصفات الشركة."],
+["CKP","حساس موضع الكرنك","يوفر إشارة سرعة وموضع عمود المرفق.","راجع RPM أثناء التدوير وشكل الإشارة والتوصيلات."],
+["CMP","حساس موضع الكام","يساعد وحدة التحكم على تحديد موضع عمود الكامات.","افحص الإشارة والتزامن والتوقيت الميكانيكي."],
+["ECT","حساس حرارة سائل التبريد","يقيس حرارة سائل التبريد.","قارن قراءة المحرك البارد بحرارة الجو وراقب تغير القراءة."],
+["IAT","حساس حرارة هواء السحب","يقيس حرارة الهواء الداخل.","قارن القراءة بالجو والمحرك البارد وافحص الأسلاك."],
+["TPS","حساس موضع الخانق","يراقب زاوية بوابة الهواء حسب النظام.","راقب التغير السلس والإشارة المطلوبة."],
+["APP","حساس دعسة الوقود","يرسل طلب السائق للتسارع.","قارن مسارات الحساس المتعددة بجهاز الفحص."],
+["O2","حساس الأكسجين","يساعد على تقييم الأكسجين بالعادم والتحكم بالخليط.","افحص بيانات الحساس وتصحيحات الوقود والتسريبات."],
+["A/F","حساس نسبة الهواء والوقود","يساعد على قياس نسبة الخليط في أنظمة محددة.","استخدم بيانات الشركة؛ لا تطبق اختبار حساس O2 التقليدي على كل الأنواع."],
+["KS","حساس الطرق","يرصد اهتزازات مرتبطة بالاحتراق غير الطبيعي.","افحص التوصيل والأكواد وتوقيت الإشعال وفق الدليل."],
+["VSS","حساس سرعة السيارة","يوفر معلومات السرعة للنظام المعني.","قارن قراءة السرعة بين الوحدات وافحص الدائرة."],
+["FRP","حساس ضغط الوقود","يقيس ضغط الوقود في الأنظمة التي تستخدمه.","قارن الضغط المطلوب والفعلي مع إجراءات السلامة."],
+["BARO","حساس الضغط الجوي","يوفر مرجع الضغط الجوي لبعض أنظمة التحكم.","قارن القراءة بالظروف والبيانات المرجعية."],
+["EGT","حساس حرارة العادم","يقيس حرارة العادم في أنظمة مجهزة به.","افحص القراءة والدائرة وموقع الحساس حسب النظام."],
+["NOx","حساس أكاسيد النيتروجين","يراقب NOx في أنظمة معالجة عادم محددة.","اقرأ أكواد النظام وبياناته ولا تفترض تلف الحساس وحده."],
+["DPF","حساس فرق ضغط المرشح","يقيس فرق الضغط عبر مرشح الجسيمات في أنظمة الديزل المجهزة.","افحص الخراطيم والتوصيلات والقراءات وفق الدليل."],
+["VVT","صمام/نظام توقيت الصمامات المتغير","يتحكم بتوقيت الكامات بحسب تصميم المحرك؛ ليس دائماً حساساً.","افحص الزيت والتحكم والصمام والتوقيت الميكانيكي."],
+["EVAP","حساسات وصمامات نظام أبخرة الوقود","النظام يقلل خروج أبخرة الوقود للجو.","افحص الأكواد والتسريب والصمام وفق إجراء الشركة."],
+["ABS","حساس سرعة العجلة","يرسل سرعة العجلة لنظام ABS/الثبات.","قارن سرعات العجلات وافحص الحلقة والأسلاك."],
+["ECT2","حساس حرارة إضافي","الوظيفة والموقع يختلفان حسب تصميم السيارة.","حدد مخطط السيارة ورقم الحساس قبل الاختبار."]
+];
 
-      const phone = '9647701200901';
-      const message = 'السلام عليكم، أريد مساعدة بخصوص سيارتي.' +
-        '\nالسيارة: ' + car +
-        '\nسنة الصنع: ' + (year || 'غير محددة') +
-        '\nالمحرك: ' + (engine || 'غير محدد') +
-        '\nالعطل: ' + symptom.options[symptom.selectedIndex].text +
-        '\nالأكواد: ' + (codes || 'غير متوفرة') +
-        '\nالتفاصيل: ' + (details || 'لا توجد');
-      const url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
+const cars=[
+["Toyota","Corolla","محركات وأجيال متعددة؛ يلزم تحديد السنة ورمز المحرك."],
+["Toyota","Camry","تختلف أنظمة المحرك والناقل والتجهيزات حسب الجيل والسوق."],
+["Toyota","Land Cruiser","تتوفر محركات وتجهيزات متعددة؛ لا تعتمد مواصفة واحدة لكل السنوات."],
+["Toyota","Hilux","تختلف محركات البنزين والديزل وأنظمة الانبعاثات حسب السوق."],
+["Toyota","Fortuner","يلزم تحديد الجيل والمحرك ونوع نظام الدفع."],
+["Toyota","Prado","تختلف أنظمة المحرك والناقل حسب الجيل."],
+["Toyota","Yaris","تختلف سعة المحرك والمواصفات حسب السوق والسنة."],
+["Hyundai","Elantra","حدد الجيل ورمز المحرك والناقل قبل مطابقة القطع."],
+["Hyundai","Accent","توجد اختلافات بالمحرك والتجهيزات حسب السنة والسوق."],
+["Kia","Sportage","تختلف المحركات وأنظمة التيربو والتجهيزات حسب الجيل."],
+["Kia","Seltos","حدد سعة المحرك وهل هو تيربو قبل اعتماد مواصفات الفحص."],
+["Kia","K5","تختلف المحركات والناقلات حسب السنة والسوق."],
+["Nissan","Sunny","تختلف مواصفات المحرك والناقل بحسب السوق والجيل."],
+["Nissan","Altima","يلزم تحديد المحرك والناقل ورقم الهيكل."],
+["Nissan","Patrol","توجد محركات وأجيال متعددة ومواصفات مختلفة."],
+["Nissan","Urvan","تختلف منظومة الوقود والمحرك حسب الجيل والسوق."],
+["Chevrolet","Tahoe","حدد المحرك وسنة الصنع والتجهيز."],
+["Chevrolet","Malibu","تختلف المحركات وأنظمة التيربو حسب الجيل."],
+["GMC","Yukon","حدد المحرك ونوع التجهيز قبل مطابقة القطع."],
+["Lexus","ES","تختلف المحركات والتجهيزات بين الأجيال."],
+["Lexus","RX","توجد نسخ بنزين وهجينة بحسب الجيل والسوق."],
+["Honda","Civic","حدد الجيل ورمز المحرك والناقل."],
+["Mitsubishi","L200","تختلف مواصفات البنزين والديزل حسب السوق."],
+["Mitsubishi","Pajero","حدد الجيل والمحرك ونظام الدفع."],
+["Suzuki","Swift","تختلف السعة والتجهيزات حسب السنة."],
+["MG","MG 5","حدد المحرك والناقل والسوق."],
+["Chery","Tiggo","اسم العائلة يشمل طرازات ومحركات مختلفة."],
+["JAC","Hunter","حدد المحرك وسنة الصنع ورمز التجهيز."]
+];
 
-      function chooseMode(mode) {
-      const codesField = document.getElementById('codes').closest('.field');
-      const details = document.getElementById('details');
-      const carTitle = document.getElementById('carTitle');
+const parts=[
+["حساس الكرنك","إدارة المحرك والإشعال","يتطلب مطابقة الموصل والإشارة ورقم المحرك."],
+["حساس الكام","إدارة توقيت المحرك","يختلف الموقع والرقم حسب المحرك."],
+["حساس الهواء MAF","قياس الهواء","تأكد من رقم OEM ومواصفات المحرك."],
+["حساس MAP","ضغط مجمع السحب","لا تفترض أنه بديل مباشر لحساس MAF."],
+["حساس حرارة ECT","حرارة المحرك","طابق منحنى المقاومة والموصل حسب الدليل."],
+["حساس الأكسجين","التحكم بالخليط والعادم","عدد الأسلاك والموقع ونوع الحساس مهمة."],
+["طرمبة الوقود","نظام الوقود","طابق ضغط التشغيل والتغذية والوحدة."],
+["بخاخ الوقود","نظام الحقن","تأكد من نوع الحقن ومعدل التدفق."],
+["كويل الإشعال","نظام الإشعال","طابق المحرك والموصل ومواصفات الشركة."],
+["بواجي","نظام الإشعال","طابق رقم القطعة والخلوص المحدد للمحرك."],
+["فلتر الزيت","نظام التزييت","طابق رقم المحرك والفلتر الصحيح."],
+["فلتر الهواء","هواء المحرك","تأكد من شكل العلبة والمقاس ورقم القطعة."],
+["ثرموستات","نظام التبريد","طابق درجة الفتح والمواصفة الصحيحة."],
+["طرمبة الماء","نظام التبريد","تختلف حسب المحرك وتصميم السير."],
+["حساس ABS","نظام الفرامل","طابق العجلة والموصل ونوع الإشارة."]
+];
 
-      if (mode === 'citizen') {
-        codesField.style.display = 'none';
-        carTitle.textContent = '١. معلومات السيارة والعطل';
-        details.placeholder =
-          'وصفلي شنو يصير بالسيارة، ومتى يظهر العطل، وهل ظهرت لمبة تحذير؟';
-        alert('تم اختيار وضع صاحب السيارة. املأ المعلومات واختار العطل.');
-      } else {
-        codesField.style.display = '';
-        carTitle.textContent = '١. معلومات السيارة والفحص الفني';
-        details.placeholder =
-          'اكتب نتائج الفحص، القراءات، الأكواد، ومتى يظهر العطل.';
-        alert('تم اختيار وضع الميكانيكي. تگدر تدخل الأكواد وملاحظات الفحص.');
-      }
-    }
-    document.getElementById('yearNow').textContent = new Date().getFullYear();
-  </script>
+function showTab(id,btn){
+document.querySelectorAll("main>section[id]").forEach(s=>s.classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function diagnose(){
+const car=document.getElementById("car").value.trim();
+const symptom=document.getElementById("symptom").value;
+const result=document.getElementById("result");
+if(!car||!symptom){alert("اكتب نوع السيارة واختار العطل أولاً.");return}
+const a=advice[symptom];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const list=a.checks.map(x=>"<li>"+esc(x)+"</li>").join("");
+const codes=document.getElementById("codes").value.trim();
+const details=document.getElementById("details").value.trim();
+const year=document.getElementById("year").value.trim();
+const engine=document.getElementById("engine").value.trim();
+const temp=document.getElementById("temp").value;
+result.innerHTML="<h3>النتيجة الأولية: "+esc(a.title)+"</h3>"+
+"<p><b>السيارة:</b> "+esc(car)+"</p>"+
+(year?"<p><b>السنة:</b> "+esc(year)+"</p>":"")+
+(engine?"<p><b>المحرك:</b> "+esc(engine)+"</p>":"")+
+"<p><b>الحالة الحرارية:</b> "+esc(temp)+"</p>"+
+(codes?"<p><b>الأكواد:</b> "+esc(codes)+"</p>":"")+
+"<h3>ترتيب الفحوصات</h3><ol>"+list+"</ol>"+
+"<h3>قبل تبديل أي قطعة</h3><p>"+esc(a.avoid)+"</p>"+
+(details?"<h3>ملاحظاتك</h3><p>"+esc(details)+"</p>":"")+
+'<div class="notice">تشخيص أولي فقط. يجب تأكيد السبب بقياسات فعلية ودليل الصيانة الخاص بالسيارة.</div>';
+result.style.display="block";
+result.scrollIntoView({behavior:"smooth"});
+}
+
+function sendWhatsApp(){
+const car=document.getElementById("car").value.trim();
+const sym=document.getElementById("symptom");
+if(!car||!sym.value){alert("اكتب نوع السيارة واختار العطل أولاً.");return}
+const msg="السلام عليكم، أحتاج مساعدة بتشخيص السيارة."+
+"\nالسيارة: "+car+
+"\nالسنة: "+(document.getElementById("year").value||"غير محددة")+
+"\nالمحرك: "+(document.getElementById("engine").value||"غير محدد")+
+"\nالعطل: "+sym.options[sym.selectedIndex].text+
+"\nالأكواد: "+(document.getElementById("codes").value||"غير متوفرة")+
+"\nالتفاصيل: "+(document.getElementById("details").value||"لا توجد");
+const phone="9647701200901";
+window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(msg),"_blank");
+}
+
+function renderSensors(){
+const q=document.getElementById("sensorSearch").value.toLowerCase();
+document.getElementById("sensorList").innerHTML=sensors.filter(s=>s.join(" ").toLowerCase().includes(q)).map(s=>
+'<div class="item"><h3>'+s[0]+' — '+s[1]+'</h3><p>'+s[2]+'</p><p class="muted">الفحص: '+s[3]+'</p></div>').join("")||"<p>ما لكينا نتائج.</p>";
+}
+function renderCars(){
+const q=document.getElementById("carSearch").value.toLowerCase();
+document.getElementById("carListResults").innerHTML=cars.filter(c=>c.join(" ").toLowerCase().includes(q)).map(c=>
+'<div class="item"><h3>'+c[0]+' '+c[1]+'</h3><p>'+c[2]+'</p><button onclick="useCar(\''+c[0]+' '+c[1]+'\')">استخدم السيارة بالتشخيص</button></div>').join("")||"<p>ما لكينا نتائج.</p>";
+}
+function useCar(name){
+document.getElementById("car").value=name;
+document.querySelectorAll("nav button")[0].click();
+}
+function renderParts(){
+const q=document.getElementById("partSearch").value.toLowerCase();
+const car=document.getElementById("partCar").value.trim();
+const year=document.getElementById("partYear").value.trim();
+const engine=document.getElementById("partEngine").value.trim();
+document.getElementById("partList").innerHTML=parts.filter(p=>p.join(" ").toLowerCase().includes(q)).map(p=>
+'<div class="item"><h3>'+p[0]+'</h3><p>'+p[1]+'</p><p>'+p[2]+'</p>'+
+'<p class="muted">السيارة المطلوبة: '+(car||"غير محددة")+
+' | السنة: '+(year||"غير محددة")+' | المحرك: '+(engine||"غير محدد")+'</p>'+
+'<span class="badge">رقم OEM غير مؤكد — يلزم التحقق</span></div>').join("")||"<p>ما لكينا نتائج.</p>";
+}
+document.getElementById("now").textContent=new Date().getFullYear();
+renderSensors();renderCars();renderParts();
+</script>
 </body>
 </html>
